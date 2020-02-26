@@ -1,12 +1,11 @@
 name: movable_widget
 description: A widget which can move by gesture
-version: 0.0.1
-author: "Bao Chen"
-homepage: ""
+version: 0.0.6
+author: "baobmb <s8871404@gmail.com>"
+homepage: "https://github.com/Baobomb/MovableWidget/tree/master/movable_widget"
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
-  flutter: ">=1.10.0 <2.0.0"
 
 dependencies:
   flutter:
@@ -21,11 +20,11 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-  plugin:
-    platforms:
-      android:
-        package: com.bao.movable_widget
-        pluginClass: MovableWidget
-      ios:
-        package: com.bao.movable_widget
-        pluginClass: MovableWidget
+#  plugin:
+#    platforms:
+#      android:
+#        package: com.bao.movable_widget
+#        pluginClass: MovableWidget
+#      ios:
+#        package: com.bao.movable_widget
+#        pluginClass: MovableWidget
