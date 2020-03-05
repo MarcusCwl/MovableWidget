@@ -1,6 +1,6 @@
-name: movable_widget
+name: power_widget
 description: A widget which can move by gesture
-version: 0.0.6
+version: 0.0.11
 author: "baobmb <s8871404@gmail.com>"
 homepage: "https://github.com/Baobomb/MovableWidget/tree/master/movable_widget"
 
