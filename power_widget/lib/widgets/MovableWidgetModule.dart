@@ -26,6 +26,10 @@ class MovableWidgetModule extends SerializableStatefulWidget {
     this.movableState = MovableWidgetModuleState(left, top, right, bottom, widgetEventListener, widgets);
   }
 
+  void updateState() {
+    movableState.setState(() {});
+  }
+
   @override
   State<StatefulWidget> createState() {
     return movableState;
