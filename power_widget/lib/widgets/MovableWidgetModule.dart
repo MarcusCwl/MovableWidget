@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:power_widget/listener/WidgetEventListener.dart';
 import 'package:power_widget/serializable/SerializableStatefulWidget.dart';
 import 'package:power_widget/serializable/WidgetSerializableModel.dart';
-import 'package:power_widget/widgets/MovableWidget.dart';
+import 'package:power_widget/widgets/PowerWidget.dart';
 
 // ignore: must_be_immutable
 class MovableWidgetModule extends SerializableStatefulWidget {
@@ -15,24 +15,26 @@ class MovableWidgetModule extends SerializableStatefulWidget {
   final double right;
   final double bottom;
   final WidgetEventListener widgetEventListener;
-  final List<MovableWidget> widgets;
+  final List<PowerWidget> widgets;
 
   //Key of Widget which need to show and impl movable statement
   //We use this to get size of widget
 
-  MovableWidgetModuleState movableState;
+  MovableWidgetModuleState state;
 
   MovableWidgetModule(this.left, this.top, this.right, this.bottom, this.widgetEventListener, this.widgets) {
-    this.movableState = MovableWidgetModuleState(left, top, right, bottom, widgetEventListener, widgets);
+    this.state = MovableWidgetModuleState(left, top, right, bottom, widgetEventListener, widgets);
   }
 
   void updateState() {
-    movableState.setState(() {});
+    if (state.mounted) {
+      state.setState(() {});
+    }
   }
 
   @override
   State<StatefulWidget> createState() {
-    return movableState;
+    return state;
   }
 
   @override
@@ -47,11 +49,11 @@ class MovableWidgetModuleState extends State<MovableWidgetModule> with SingleTic
   final double xMax;
   final double yMax;
   final WidgetEventListener widgetEventListener;
-  final List<MovableWidget> widgets;
+  final List<PowerWidget> widgets;
 
   MovableWidgetModuleState(this.xMin, this.yMin, this.xMax, this.yMax, this.widgetEventListener, this.widgets);
 
-  Size getSize(MovableWidget widget) {
+  Size getSize(PowerWidget widget) {
     final BuildContext context = widget.globalKey.currentContext;
     if (context != null) {
       final RenderBox renderBoxRed = widget.globalKey.currentContext.findRenderObject();
@@ -65,7 +67,7 @@ class MovableWidgetModuleState extends State<MovableWidgetModule> with SingleTic
     return widgets.map((module) => providePositioned(module)).toList();
   }
 
-  void correctWidgetPosition(double tempLeft, double tempTop, MovableWidget widget) {
+  void correctWidgetPosition(double tempLeft, double tempTop, PowerWidget widget) {
     if (tempLeft >= xMax - getSize(widget).width) {
       widget.left = xMax - getSize(widget).width;
     } else if (tempLeft <= xMin) {
@@ -83,21 +85,26 @@ class MovableWidgetModuleState extends State<MovableWidgetModule> with SingleTic
     }
   }
 
-  Positioned providePositioned(MovableWidget widget) {
+  Positioned providePositioned(PowerWidget widget) {
     return Positioned(
       top: widget.top < yMin ? yMin : widget.top,
       left: widget.left < xMin ? xMin : widget.left,
       child: GestureDetector(
         child: widget,
         onPanUpdate: (DragUpdateDetails e) {
+          widget.onMoving();
           setState(() {
             double tempLeft = widget.left + e.delta.dx;
             double tempTop = widget.top + e.delta.dy;
             correctWidgetPosition(tempLeft, tempTop, widget);
           });
         },
-        onTap: () => widgetEventListener.onTap(),
-        onPanEnd: (DragEndDetails e) {},
+        onTap: () {
+          widget.onTap();
+        },
+        onPanEnd: (DragEndDetails e) {
+          widget.onMoved();
+        },
       ),
     );
   }

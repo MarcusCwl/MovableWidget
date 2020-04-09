@@ -1,4 +1,4 @@
-library movable_widget;
+library power_widget;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ import 'package:power_widget/serializable/SerializableStatelessWidget.dart';
 import 'package:power_widget/serializable/WidgetSerializableModel.dart';
 
 // ignore: must_be_immutable
-abstract class MovableWidget extends SerializableStatelessWidget {
+abstract class PowerWidget extends SerializableStatelessWidget {
   double top;
   double left;
   double right;
@@ -20,7 +20,13 @@ abstract class MovableWidget extends SerializableStatelessWidget {
 
   final GlobalKey globalKey;
 
-  MovableWidget(this.left, this.top, this.right, this.bottom, this.widget, this.globalKey);
+  PowerWidget(this.left, this.top, this.right, this.bottom, this.widget, this.globalKey);
+
+  void onMoved();
+
+  void onMoving();
+
+  void onTap();
 
   @override
   WidgetSerializableModel getWidgetSerializableModel() {
