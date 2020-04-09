@@ -14,7 +14,6 @@ class MovableWidgetModule extends SerializableStatefulWidget {
   final double left;
   final double right;
   final double bottom;
-  final WidgetEventListener widgetEventListener;
   final List<PowerWidget> widgets;
 
   //Key of Widget which need to show and impl movable statement
@@ -22,8 +21,8 @@ class MovableWidgetModule extends SerializableStatefulWidget {
 
   MovableWidgetModuleState state;
 
-  MovableWidgetModule(this.left, this.top, this.right, this.bottom, this.widgetEventListener, this.widgets) {
-    this.state = MovableWidgetModuleState(left, top, right, bottom, widgetEventListener, widgets);
+  MovableWidgetModule(this.left, this.top, this.right, this.bottom, this.widgets) {
+    this.state = MovableWidgetModuleState(left, top, right, bottom, widgets);
   }
 
   void updateState() {
@@ -48,10 +47,9 @@ class MovableWidgetModuleState extends State<MovableWidgetModule> with SingleTic
   final double yMin;
   final double xMax;
   final double yMax;
-  final WidgetEventListener widgetEventListener;
   final List<PowerWidget> widgets;
 
-  MovableWidgetModuleState(this.xMin, this.yMin, this.xMax, this.yMax, this.widgetEventListener, this.widgets);
+  MovableWidgetModuleState(this.xMin, this.yMin, this.xMax, this.yMax, this.widgets);
 
   Size getSize(PowerWidget widget) {
     final BuildContext context = widget.globalKey.currentContext;
