@@ -2,7 +2,7 @@ name: power_widget
 description: A widget which can move by gesture
 version: 0.0.52
 author: "baobmb <s8871404@gmail.com>"
-homepage: "https://github.com/Baobomb/MovableWidget/tree/master/movable_widget"
+homepage: "https://github.com/Baobomb/MovableWidget/tree/master/power_widget"
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
